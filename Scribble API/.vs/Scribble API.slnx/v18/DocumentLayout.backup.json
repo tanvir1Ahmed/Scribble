@@ -1,0 +1,255 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "D:\\Md. Tanvir Ahmed\\Git Projects\\VS Code Lab\\Scribble Lab\\Scribble\\Scribble API\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{ECF1F14C-7F96-852E-D2F5-B90DEFBC2049}|Scribble API\\Scribble API.csproj|d:\\md. tanvir ahmed\\git projects\\vs code lab\\scribble lab\\scribble\\scribble api\\scribble api\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{ECF1F14C-7F96-852E-D2F5-B90DEFBC2049}|Scribble API\\Scribble API.csproj|solutionrelative:scribble api\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D3F5D44D-D621-46CF-A005-51028519B5EE}|Scribble.Business\\Scribble.Business.csproj|d:\\md. tanvir ahmed\\git projects\\vs code lab\\scribble lab\\scribble\\scribble api\\scribble.business\\services\\gameservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D3F5D44D-D621-46CF-A005-51028519B5EE}|Scribble.Business\\Scribble.Business.csproj|solutionrelative:scribble.business\\services\\gameservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{ECF1F14C-7F96-852E-D2F5-B90DEFBC2049}|Scribble API\\Scribble API.csproj|d:\\md. tanvir ahmed\\git projects\\vs code lab\\scribble lab\\scribble\\scribble api\\scribble api\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{ECF1F14C-7F96-852E-D2F5-B90DEFBC2049}|Scribble API\\Scribble API.csproj|solutionrelative:scribble api\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D3F5D44D-D621-46CF-A005-51028519B5EE}|Scribble.Business\\Scribble.Business.csproj|d:\\md. tanvir ahmed\\git projects\\vs code lab\\scribble lab\\scribble\\scribble api\\scribble.business\\services\\playerroomcacheservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D3F5D44D-D621-46CF-A005-51028519B5EE}|Scribble.Business\\Scribble.Business.csproj|solutionrelative:scribble.business\\services\\playerroomcacheservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D3F5D44D-D621-46CF-A005-51028519B5EE}|Scribble.Business\\Scribble.Business.csproj|d:\\md. tanvir ahmed\\git projects\\vs code lab\\scribble lab\\scribble\\scribble api\\scribble.business\\services\\leaderboardservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D3F5D44D-D621-46CF-A005-51028519B5EE}|Scribble.Business\\Scribble.Business.csproj|solutionrelative:scribble.business\\services\\leaderboardservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D3F5D44D-D621-46CF-A005-51028519B5EE}|Scribble.Business\\Scribble.Business.csproj|d:\\md. tanvir ahmed\\git projects\\vs code lab\\scribble lab\\scribble\\scribble api\\scribble.business\\services\\wordservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D3F5D44D-D621-46CF-A005-51028519B5EE}|Scribble.Business\\Scribble.Business.csproj|solutionrelative:scribble.business\\services\\wordservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{87A7DFFA-CEB2-4077-B962-85BAB1E996C5}|Scribble.Repository\\Scribble.Repository.csproj|d:\\md. tanvir ahmed\\git projects\\vs code lab\\scribble lab\\scribble\\scribble api\\scribble.repository\\repositories\\leaderboardrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{87A7DFFA-CEB2-4077-B962-85BAB1E996C5}|Scribble.Repository\\Scribble.Repository.csproj|solutionrelative:scribble.repository\\repositories\\leaderboardrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{ECF1F14C-7F96-852E-D2F5-B90DEFBC2049}|Scribble API\\Scribble API.csproj|d:\\md. tanvir ahmed\\git projects\\vs code lab\\scribble lab\\scribble\\scribble api\\scribble api\\hubs\\gamehub.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{ECF1F14C-7F96-852E-D2F5-B90DEFBC2049}|Scribble API\\Scribble API.csproj|solutionrelative:scribble api\\hubs\\gamehub.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{ECF1F14C-7F96-852E-D2F5-B90DEFBC2049}|Scribble API\\Scribble API.csproj|d:\\md. tanvir ahmed\\git projects\\vs code lab\\scribble lab\\scribble\\scribble api\\scribble api\\controllers\\gamecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{ECF1F14C-7F96-852E-D2F5-B90DEFBC2049}|Scribble API\\Scribble API.csproj|solutionrelative:scribble api\\controllers\\gamecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{87A7DFFA-CEB2-4077-B962-85BAB1E996C5}|Scribble.Repository\\Scribble.Repository.csproj|d:\\md. tanvir ahmed\\git projects\\vs code lab\\scribble lab\\scribble\\scribble api\\scribble.repository\\dependencyinjection.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{87A7DFFA-CEB2-4077-B962-85BAB1E996C5}|Scribble.Repository\\Scribble.Repository.csproj|solutionrelative:scribble.repository\\dependencyinjection.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D3F5D44D-D621-46CF-A005-51028519B5EE}|Scribble.Business\\Scribble.Business.csproj|d:\\md. tanvir ahmed\\git projects\\vs code lab\\scribble lab\\scribble\\scribble api\\scribble.business\\dependencyinjection.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D3F5D44D-D621-46CF-A005-51028519B5EE}|Scribble.Business\\Scribble.Business.csproj|solutionrelative:scribble.business\\dependencyinjection.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{ECF1F14C-7F96-852E-D2F5-B90DEFBC2049}|Scribble API\\Scribble API.csproj|d:\\md. tanvir ahmed\\git projects\\vs code lab\\scribble lab\\scribble\\scribble api\\scribble api\\properties\\launchsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{ECF1F14C-7F96-852E-D2F5-B90DEFBC2049}|Scribble API\\Scribble API.csproj|solutionrelative:scribble api\\properties\\launchsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{ECF1F14C-7F96-852E-D2F5-B90DEFBC2049}|Scribble API\\Scribble API.csproj|d:\\md. tanvir ahmed\\git projects\\vs code lab\\scribble lab\\scribble\\scribble api\\scribble api\\dtos\\chatmessagedto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{ECF1F14C-7F96-852E-D2F5-B90DEFBC2049}|Scribble API\\Scribble API.csproj|solutionrelative:scribble api\\dtos\\chatmessagedto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D3F5D44D-D621-46CF-A005-51028519B5EE}|Scribble.Business\\Scribble.Business.csproj|d:\\md. tanvir ahmed\\git projects\\vs code lab\\scribble lab\\scribble\\scribble api\\scribble.business\\scribble.business.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
+      "RelativeMoniker": "D:0:0:{D3F5D44D-D621-46CF-A005-51028519B5EE}|Scribble.Business\\Scribble.Business.csproj|solutionrelative:scribble.business\\scribble.business.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 7,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "appsettings.json",
+              "DocumentMoniker": "D:\\Md. Tanvir Ahmed\\Git Projects\\VS Code Lab\\Scribble Lab\\Scribble\\Scribble API\\Scribble API\\appsettings.json",
+              "RelativeDocumentMoniker": "Scribble API\\appsettings.json",
+              "ToolTip": "D:\\Md. Tanvir Ahmed\\Git Projects\\VS Code Lab\\Scribble Lab\\Scribble\\Scribble API\\Scribble API\\appsettings.json",
+              "RelativeToolTip": "Scribble API\\appsettings.json",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2025-12-22T04:43:34.089Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "PlayerRoomCacheService.cs",
+              "DocumentMoniker": "D:\\Md. Tanvir Ahmed\\Git Projects\\VS Code Lab\\Scribble Lab\\Scribble\\Scribble API\\Scribble.Business\\Services\\PlayerRoomCacheService.cs",
+              "RelativeDocumentMoniker": "Scribble.Business\\Services\\PlayerRoomCacheService.cs",
+              "ToolTip": "D:\\Md. Tanvir Ahmed\\Git Projects\\VS Code Lab\\Scribble Lab\\Scribble\\Scribble API\\Scribble.Business\\Services\\PlayerRoomCacheService.cs",
+              "RelativeToolTip": "Scribble.Business\\Services\\PlayerRoomCacheService.cs",
+              "ViewState": "AgIAAAYAAAAAAAAAAAAAACMAAAAIAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-22T04:37:41.189Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "LeaderboardService.cs",
+              "DocumentMoniker": "D:\\Md. Tanvir Ahmed\\Git Projects\\VS Code Lab\\Scribble Lab\\Scribble\\Scribble API\\Scribble.Business\\Services\\LeaderboardService.cs",
+              "RelativeDocumentMoniker": "Scribble.Business\\Services\\LeaderboardService.cs",
+              "ToolTip": "D:\\Md. Tanvir Ahmed\\Git Projects\\VS Code Lab\\Scribble Lab\\Scribble\\Scribble API\\Scribble.Business\\Services\\LeaderboardService.cs",
+              "RelativeToolTip": "Scribble.Business\\Services\\LeaderboardService.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-22T04:37:31.404Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "WordService.cs",
+              "DocumentMoniker": "D:\\Md. Tanvir Ahmed\\Git Projects\\VS Code Lab\\Scribble Lab\\Scribble\\Scribble API\\Scribble.Business\\Services\\WordService.cs",
+              "RelativeDocumentMoniker": "Scribble.Business\\Services\\WordService.cs",
+              "ToolTip": "D:\\Md. Tanvir Ahmed\\Git Projects\\VS Code Lab\\Scribble Lab\\Scribble\\Scribble API\\Scribble.Business\\Services\\WordService.cs",
+              "RelativeToolTip": "Scribble.Business\\Services\\WordService.cs",
+              "ViewState": "AgIAAAsAAAAAAAAAAAAQwAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-22T04:36:59.266Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "LeaderboardRepository.cs",
+              "DocumentMoniker": "D:\\Md. Tanvir Ahmed\\Git Projects\\VS Code Lab\\Scribble Lab\\Scribble\\Scribble API\\Scribble.Repository\\Repositories\\LeaderboardRepository.cs",
+              "RelativeDocumentMoniker": "Scribble.Repository\\Repositories\\LeaderboardRepository.cs",
+              "ToolTip": "D:\\Md. Tanvir Ahmed\\Git Projects\\VS Code Lab\\Scribble Lab\\Scribble\\Scribble API\\Scribble.Repository\\Repositories\\LeaderboardRepository.cs",
+              "RelativeToolTip": "Scribble.Repository\\Repositories\\LeaderboardRepository.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABMAAAAIAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-22T03:52:55.179Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "GameHub.cs",
+              "DocumentMoniker": "D:\\Md. Tanvir Ahmed\\Git Projects\\VS Code Lab\\Scribble Lab\\Scribble\\Scribble API\\Scribble API\\Hubs\\GameHub.cs",
+              "RelativeDocumentMoniker": "Scribble API\\Hubs\\GameHub.cs",
+              "ToolTip": "D:\\Md. Tanvir Ahmed\\Git Projects\\VS Code Lab\\Scribble Lab\\Scribble\\Scribble API\\Scribble API\\Hubs\\GameHub.cs",
+              "RelativeToolTip": "Scribble API\\Hubs\\GameHub.cs",
+              "ViewState": "AgIAAJoAAAAAAAAAAAAwwPUAAAA5AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-21T12:19:49.459Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 11,
+              "Title": "launchSettings.json",
+              "DocumentMoniker": "D:\\Md. Tanvir Ahmed\\Git Projects\\VS Code Lab\\Scribble Lab\\Scribble\\Scribble API\\Scribble API\\Properties\\launchSettings.json",
+              "RelativeDocumentMoniker": "Scribble API\\Properties\\launchSettings.json",
+              "ToolTip": "D:\\Md. Tanvir Ahmed\\Git Projects\\VS Code Lab\\Scribble Lab\\Scribble\\Scribble API\\Scribble API\\Properties\\launchSettings.json",
+              "RelativeToolTip": "Scribble API\\Properties\\launchSettings.json",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAAAuAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2025-12-21T10:16:15.644Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "Program.cs",
+              "DocumentMoniker": "D:\\Md. Tanvir Ahmed\\Git Projects\\VS Code Lab\\Scribble Lab\\Scribble\\Scribble API\\Scribble API\\Program.cs",
+              "RelativeDocumentMoniker": "Scribble API\\Program.cs",
+              "ToolTip": "D:\\Md. Tanvir Ahmed\\Git Projects\\VS Code Lab\\Scribble Lab\\Scribble\\Scribble API\\Scribble API\\Program.cs*",
+              "RelativeToolTip": "Scribble API\\Program.cs*",
+              "ViewState": "AgIAAC0AAAAAAAAAAAAAAEwAAAAeAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-21T06:04:31.047Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "GameService.cs",
+              "DocumentMoniker": "D:\\Md. Tanvir Ahmed\\Git Projects\\VS Code Lab\\Scribble Lab\\Scribble\\Scribble API\\Scribble.Business\\Services\\GameService.cs",
+              "RelativeDocumentMoniker": "Scribble.Business\\Services\\GameService.cs",
+              "ToolTip": "D:\\Md. Tanvir Ahmed\\Git Projects\\VS Code Lab\\Scribble Lab\\Scribble\\Scribble API\\Scribble.Business\\Services\\GameService.cs",
+              "RelativeToolTip": "Scribble.Business\\Services\\GameService.cs",
+              "ViewState": "AgIAAP8AAAAAAAAAAAAIwBgBAAAIAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-21T06:02:15.717Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 12,
+              "Title": "ChatMessageDto.cs",
+              "DocumentMoniker": "D:\\Md. Tanvir Ahmed\\Git Projects\\VS Code Lab\\Scribble Lab\\Scribble\\Scribble API\\Scribble API\\DTOs\\ChatMessageDto.cs",
+              "RelativeDocumentMoniker": "Scribble API\\DTOs\\ChatMessageDto.cs",
+              "ToolTip": "D:\\Md. Tanvir Ahmed\\Git Projects\\VS Code Lab\\Scribble Lab\\Scribble\\Scribble API\\Scribble API\\DTOs\\ChatMessageDto.cs",
+              "RelativeToolTip": "Scribble API\\DTOs\\ChatMessageDto.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-21T06:02:08.804Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "GameController.cs",
+              "DocumentMoniker": "D:\\Md. Tanvir Ahmed\\Git Projects\\VS Code Lab\\Scribble Lab\\Scribble\\Scribble API\\Scribble API\\Controllers\\GameController.cs",
+              "RelativeDocumentMoniker": "Scribble API\\Controllers\\GameController.cs",
+              "ToolTip": "D:\\Md. Tanvir Ahmed\\Git Projects\\VS Code Lab\\Scribble Lab\\Scribble\\Scribble API\\Scribble API\\Controllers\\GameController.cs",
+              "RelativeToolTip": "Scribble API\\Controllers\\GameController.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-21T06:01:41.077Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "DependencyInjection.cs",
+              "DocumentMoniker": "D:\\Md. Tanvir Ahmed\\Git Projects\\VS Code Lab\\Scribble Lab\\Scribble\\Scribble API\\Scribble.Repository\\DependencyInjection.cs",
+              "RelativeDocumentMoniker": "Scribble.Repository\\DependencyInjection.cs",
+              "ToolTip": "D:\\Md. Tanvir Ahmed\\Git Projects\\VS Code Lab\\Scribble Lab\\Scribble\\Scribble API\\Scribble.Repository\\DependencyInjection.cs",
+              "RelativeToolTip": "Scribble.Repository\\DependencyInjection.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-21T05:48:52.864Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
+              "Title": "DependencyInjection.cs",
+              "DocumentMoniker": "D:\\Md. Tanvir Ahmed\\Git Projects\\VS Code Lab\\Scribble Lab\\Scribble\\Scribble API\\Scribble.Business\\DependencyInjection.cs",
+              "RelativeDocumentMoniker": "Scribble.Business\\DependencyInjection.cs",
+              "ToolTip": "D:\\Md. Tanvir Ahmed\\Git Projects\\VS Code Lab\\Scribble Lab\\Scribble\\Scribble API\\Scribble.Business\\DependencyInjection.cs",
+              "RelativeToolTip": "Scribble.Business\\DependencyInjection.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-21T05:48:29.214Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 13,
+              "Title": "Scribble.Business.csproj",
+              "DocumentMoniker": "D:\\Md. Tanvir Ahmed\\Git Projects\\VS Code Lab\\Scribble Lab\\Scribble\\Scribble API\\Scribble.Business\\Scribble.Business.csproj",
+              "RelativeDocumentMoniker": "Scribble.Business\\Scribble.Business.csproj",
+              "ToolTip": "D:\\Md. Tanvir Ahmed\\Git Projects\\VS Code Lab\\Scribble Lab\\Scribble\\Scribble API\\Scribble.Business\\Scribble.Business.csproj",
+              "RelativeToolTip": "Scribble.Business\\Scribble.Business.csproj",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABEAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
+              "WhenOpened": "2025-12-21T05:46:47.83Z"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

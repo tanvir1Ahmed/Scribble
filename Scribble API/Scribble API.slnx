@@ -1,0 +1,5 @@
+<Solution>
+  <Project Path="Scribble API/Scribble API.csproj" />
+  <Project Path="Scribble.Business/Scribble.Business.csproj" Id="d3f5d44d-d621-46cf-a005-51028519b5ee" />
+  <Project Path="Scribble.Repository/Scribble.Repository.csproj" Id="87a7dffa-ceb2-4077-b962-85bab1e996c5" />
+</Solution>
