@@ -1,0 +1,19 @@
+services:
+  - type: web
+    name: scribble-api
+    runtime: docker
+    dockerfilePath: ./Dockerfile
+    dockerContext: .
+    envVars:
+      - key: ASPNETCORE_ENVIRONMENT
+        value: Production
+      - key: Jwt__Key
+        generateValue: true
+      - key: Jwt__Issuer
+        value: ScribbleAPI
+      - key: Jwt__Audience
+        value: ScribbleApp
+      # Uncomment and set if using Redis
+      # - key: ConnectionStrings__Redis
+      #   value: your-redis-connection-string
+    healthCheckPath: /health

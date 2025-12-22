@@ -74,12 +74,18 @@ builder.Services.AddAuthentication(options =>
     };
 });
 
+// Add Health Checks
+builder.Services.AddHealthChecks();
+
 // Add CORS for React frontend
+var allowedOrigins = builder.Configuration.GetSection("Cors:AllowedOrigins").Get<string[]>() 
+    ?? ["http://localhost:5173", "http://localhost:3000", "http://localhost:5174", "http://localhost:5175"];
+
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowReactApp", policy =>
     {
-        policy.WithOrigins("http://localhost:5173", "http://localhost:3000", "http://localhost:5174", "http://localhost:5175")
+        policy.WithOrigins(allowedOrigins)
               .AllowAnyHeader()
               .AllowAnyMethod()
               .AllowCredentials();
@@ -105,6 +111,9 @@ app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();
+
+// Map health check endpoint
+app.MapHealthChecks("/health");
 
 // Map SignalR hub
 app.MapHub<GameHub>("/gameHub");
