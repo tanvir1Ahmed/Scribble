@@ -2,19 +2,19 @@
 FROM mcr.microsoft.com/dotnet/sdk:10.0-preview AS build
 WORKDIR /src
 
-# Copy solution and project files (adjust paths to match your structure)
-COPY ["Scribble/Scribble API/Scribble API.csproj", "Scribble API/"]
-COPY ["Scribble/Scribble.Business/Scribble.Business.csproj", "Scribble.Business/"]
-COPY ["Scribble/Scribble.Repository/Scribble.Repository.csproj", "Scribble.Repository/"]
+# Copy solution and project files (use forward slashes in Docker, even on Windows)
+COPY ["Scribble API/Scribble API/Scribble API.csproj", "Scribble API/"]
+COPY ["Scribble API/Scribble.Business/Scribble.Business.csproj", "Scribble.Business/"]
+COPY ["Scribble API/Scribble.Repository/Scribble.Repository.csproj", "Scribble.Repository/"]
 
 # Restore dependencies
 RUN dotnet restore "Scribble API/Scribble API.csproj"
 
 # Copy everything else
-COPY Scribble/ .
+COPY . .
 
 # Build the application
-WORKDIR "/src/Scribble API"
+WORKDIR "/src/Scribble API/Scribble API"
 RUN dotnet build "Scribble API.csproj" -c Release -o /app/build
 
 # Publish stage
