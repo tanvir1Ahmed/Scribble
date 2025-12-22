@@ -2,16 +2,16 @@
 FROM mcr.microsoft.com/dotnet/sdk:10.0-preview AS build
 WORKDIR /src
 
-# Copy solution and project files
-COPY ["Scribble API/Scribble API.csproj", "Scribble API/"]
-COPY ["Scribble.Business/Scribble.Business.csproj", "Scribble.Business/"]
-COPY ["Scribble.Repository/Scribble.Repository.csproj", "Scribble.Repository/"]
+# Copy solution and project files (adjust paths to match your structure)
+COPY ["Scribble/Scribble API/Scribble API.csproj", "Scribble API/"]
+COPY ["Scribble/Scribble.Business/Scribble.Business.csproj", "Scribble.Business/"]
+COPY ["Scribble/Scribble.Repository/Scribble.Repository.csproj", "Scribble.Repository/"]
 
 # Restore dependencies
 RUN dotnet restore "Scribble API/Scribble API.csproj"
 
 # Copy everything else
-COPY . .
+COPY Scribble/ .
 
 # Build the application
 WORKDIR "/src/Scribble API"
