@@ -2,6 +2,7 @@ services:
   - type: web
     name: scribble-api
     runtime: docker
+    rootDir: Scribble API
     dockerfilePath: ./Dockerfile
     dockerContext: .
     envVars:
