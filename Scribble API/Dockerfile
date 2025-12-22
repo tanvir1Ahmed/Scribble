@@ -3,9 +3,9 @@ FROM mcr.microsoft.com/dotnet/sdk:10.0-preview AS build
 WORKDIR /src
 
 # Copy solution and project files
-COPY "Scribble API/Scribble API.csproj" "Scribble API/"
-COPY "Scribble.Business/Scribble.Business.csproj" "Scribble.Business/"
-COPY "Scribble.Repository/Scribble.Repository.csproj" "Scribble.Repository/"
+COPY ["Scribble API/Scribble API.csproj", "Scribble API/"]
+COPY ["Scribble.Business/Scribble.Business.csproj", "Scribble.Business/"]
+COPY ["Scribble.Repository/Scribble.Repository.csproj", "Scribble.Repository/"]
 
 # Restore dependencies
 RUN dotnet restore "Scribble API/Scribble API.csproj"
