@@ -80,7 +80,7 @@ builder.Services.AddHealthChecks();
 // Add CORS for React frontend
 var allowedOrigins = builder.Configuration.GetSection("Cors:AllowedOrigins").Get<string[]>() 
     ?? ["http://localhost:5173", "http://localhost:3000", "http://localhost:5174", "http://localhost:5175",
-    "https://scribble-ui.netlify.app/"];
+    "https://scribble-ui.netlify.app"];
 
 builder.Services.AddCors(options =>
 {
