@@ -50,4 +50,29 @@ public class UserRepository : IUserRepository
         await _context.SaveChangesAsync();
         return user;
     }
+
+    public async Task SetOnlineStatusAsync(int userId, bool isOnline, string? connectionId = null)
+    {
+        var user = await _context.Users.FindAsync(userId);
+        if (user != null)
+        {
+            user.IsOnline = isOnline;
+            user.CurrentConnectionId = connectionId;
+            user.LastSeenAt = DateTime.UtcNow;
+            await _context.SaveChangesAsync();
+        }
+    }
+
+    public async Task<List<User>> GetOnlineUsersAsync(IEnumerable<int> userIds)
+    {
+        return await _context.Users
+            .Where(u => userIds.Contains(u.Id) && u.IsOnline)
+            .ToListAsync();
+    }
+
+    public async Task<User?> GetByConnectionIdAsync(string connectionId)
+    {
+        return await _context.Users
+            .FirstOrDefaultAsync(u => u.CurrentConnectionId == connectionId);
+    }
 }

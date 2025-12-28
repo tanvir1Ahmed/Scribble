@@ -19,18 +19,43 @@ public class RoomRepository : IRoomRepository
         return await _context.Rooms.FindAsync(roomId);
     }
 
+    public async Task<Room?> GetByRoomCodeAsync(string roomCode)
+    {
+        return await _context.Rooms
+            .FirstOrDefaultAsync(r => r.RoomCode == roomCode.ToUpper());
+    }
+
     public async Task<Room?> GetWithPlayersAsync(int roomId)
     {
         return await _context.Rooms
             .Include(r => r.Players)
+            .AsSplitQuery()
             .FirstOrDefaultAsync(r => r.Id == roomId);
+    }
+
+    public async Task<Room?> GetWithPlayersNoTrackingAsync(int roomId)
+    {
+        return await _context.Rooms
+            .Include(r => r.Players)
+            .AsNoTracking()
+            .AsSplitQuery()
+            .FirstOrDefaultAsync(r => r.Id == roomId);
+    }
+
+    public async Task<Room?> GetWithPlayersByCodeAsync(string roomCode)
+    {
+        return await _context.Rooms
+            .Include(r => r.Players)
+            .FirstOrDefaultAsync(r => r.RoomCode == roomCode.ToUpper());
     }
 
     public async Task<Room?> FindAvailableRoomAsync()
     {
         return await _context.Rooms
             .Include(r => r.Players)
-            .Where(r => r.Status == RoomStatus.Waiting && r.Players.Count < Room.MaxPlayers)
+            .Where(r => r.Status == RoomStatus.Waiting && 
+                        r.RoomType == RoomType.Public &&
+                        r.Players.Count < r.MaxPlayers)
             .OrderBy(r => r.CreatedAt)
             .FirstOrDefaultAsync();
     }
@@ -51,5 +76,10 @@ public class RoomRepository : IRoomRepository
     public async Task<bool> ExistsAsync(int roomId)
     {
         return await _context.Rooms.AnyAsync(r => r.Id == roomId);
+    }
+
+    public async Task<bool> RoomCodeExistsAsync(string roomCode)
+    {
+        return await _context.Rooms.AnyAsync(r => r.RoomCode == roomCode.ToUpper());
     }
 }

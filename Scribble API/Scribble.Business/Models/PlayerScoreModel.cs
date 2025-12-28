@@ -7,4 +7,5 @@ public class PlayerScoreModel
     public int Score { get; set; }
     public bool IsDrawing { get; set; }
     public bool HasGuessedCorrectly { get; set; }
+    public bool IsHost { get; set; }
 }

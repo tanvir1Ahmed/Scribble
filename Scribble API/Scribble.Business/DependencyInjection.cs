@@ -13,6 +13,8 @@ public static class DependencyInjection
         services.AddScoped<ILeaderboardService, LeaderboardService>();
         services.AddScoped<IAuthService, AuthService>();
         services.AddSingleton<IPlayerRoomCacheService, PlayerRoomCacheService>();
+        services.AddScoped<IFriendService, FriendService>();
+        services.AddScoped<IRoomInvitationService, RoomInvitationService>();
 
         return services;
     }

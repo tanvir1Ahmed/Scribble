@@ -8,4 +8,9 @@ public class User
     public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
     public DateTime? LastLoginAt { get; set; }
     public bool IsActive { get; set; } = true;
+    
+    // Online status
+    public bool IsOnline { get; set; } = false;
+    public string? CurrentConnectionId { get; set; }
+    public DateTime? LastSeenAt { get; set; }
 }

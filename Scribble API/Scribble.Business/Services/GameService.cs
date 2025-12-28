@@ -39,6 +39,7 @@ public class GameService : IGameService
                 {
                     RoomCode = GenerateRoomCode(),
                     Status = RoomStatus.Waiting,
+                    RoomType = RoomType.Public,
                     CreatedAt = DateTime.UtcNow
                 };
                 room = await _roomRepository.CreateAsync(room);
@@ -52,39 +53,51 @@ public class GameService : IGameService
         }
     }
 
-    public async Task<Player> JoinRoomAsync(string connectionId, string username, string mobileNumber, int roomId)
+    public async Task<Player> JoinRoomAsync(string connectionId, string username, string mobileNumber, int roomId, int? userId = null, bool isHost = false)
     {
         var room = await _roomRepository.GetWithPlayersAsync(roomId);
 
         if (room == null)
             throw new Exception("Room not found");
 
-        if (room.Players.Count >= Room.MaxPlayers)
+        if (room.Players.Count >= room.MaxPlayers)
             throw new Exception("Room is full");
 
-        // Check if this player is already in the room (by mobile number)
-        var existingPlayer = room.Players.FirstOrDefault(p => p.MobileNumber == mobileNumber);
-        if (existingPlayer != null)
+        // IMPORTANT: First, delete ANY existing player record for this mobile number (in ANY room)
+        // This prevents duplicate player records across rooms
+        var existingPlayerAnywhere = await _playerRepository.GetByMobileNumberAsync(mobileNumber);
+        if (existingPlayerAnywhere != null)
         {
-            // Update connection ID for reconnection
-            existingPlayer.ConnectionId = connectionId;
-            await _playerRepository.UpdateAsync(existingPlayer);
-            return existingPlayer;
+            Console.WriteLine($"[JoinRoomAsync] Found existing player {existingPlayerAnywhere.Id} in room {existingPlayerAnywhere.RoomId}, deleting before joining room {roomId}");
+            await _playerRepository.DeleteAsync(existingPlayerAnywhere);
         }
 
+        // Now create fresh player for this room
         var player = new Player
         {
             ConnectionId = connectionId,
             Username = username,
             MobileNumber = mobileNumber,
+            UserId = userId,
             RoomId = roomId,
             Score = 0,
             IsDrawing = false,
+            IsHost = isHost,
             HasGuessedCorrectly = false,
             JoinedAt = DateTime.UtcNow
         };
 
-        return await _playerRepository.CreateAsync(player);
+        var createdPlayer = await _playerRepository.CreateAsync(player);
+        Console.WriteLine($"[JoinRoomAsync] Created player {createdPlayer.Id} in room {roomId}, isHost: {isHost}");
+
+        // If this is the host, update the room's host reference
+        if (isHost)
+        {
+            room.HostPlayerId = createdPlayer.Id;
+            await _roomRepository.UpdateAsync(room);
+        }
+
+        return createdPlayer;
     }
 
     public async Task<Player?> GetPlayerByConnectionIdAsync(string connectionId)
@@ -145,31 +158,94 @@ public class GameService : IGameService
         }
     }
 
+    public async Task RemovePlayerByMobileNumberAsync(string mobileNumber)
+    {
+        var player = await _playerRepository.GetByMobileNumberAsync(mobileNumber);
+        if (player != null)
+        {
+            Console.WriteLine($"[RemovePlayerByMobileNumber] Removing player {player.Id} ({player.Username}) from room {player.RoomId}");
+            await _playerRepository.DeleteAsync(player);
+        }
+    }
+
     public async Task<bool> StartGameAsync(int roomId)
     {
-        var room = await _roomRepository.GetWithPlayersAsync(roomId);
+        var room = await _roomRepository.GetByIdAsync(roomId);
+        
+        // Use direct player count instead of room.Players.Count
+        var playerCount = await _playerRepository.GetPlayerCountByRoomIdAsync(roomId);
+        
+        Console.WriteLine($"[StartGameAsync] RoomId: {roomId}, PlayerCount (direct): {playerCount}, MinPlayers: {room?.MinPlayers ?? 0}");
 
-        if (room == null || room.Players.Count < Room.MaxPlayers)
+        if (room == null || playerCount < room.MinPlayers)
+        {
+            Console.WriteLine($"[StartGameAsync] Cannot start - room null or not enough players");
             return false;
+        }
 
         room.Status = RoomStatus.Playing;
         room.CurrentRound = 1;
         room.CurrentDrawerIndex = 0;
 
-        var players = room.Players.OrderBy(p => p.JoinedAt).ToList();
+        // Get players directly from repository
+        var players = await _playerRepository.GetByRoomIdAsync(roomId);
+        players = players.OrderBy(p => p.JoinedAt).ToList();
+        
         foreach (var p in players)
         {
             p.IsDrawing = false;
             p.HasGuessedCorrectly = false;
+            await _playerRepository.UpdateAsync(p);
         }
-        players[0].IsDrawing = true;
+        
+        if (players.Count > 0)
+        {
+            players[0].IsDrawing = true;
+            await _playerRepository.UpdateAsync(players[0]);
+        }
 
         var words = _wordService.GetRandomWords(3);
         room.WordOptions = JsonSerializer.Serialize(words);
         room.CurrentWord = null;
 
         await _roomRepository.UpdateAsync(room);
+        Console.WriteLine($"[StartGameAsync] Game started successfully for room {roomId}");
         return true;
+    }
+
+    public async Task<bool> CanStartGameAsync(int roomId)
+    {
+        var room = await _roomRepository.GetWithPlayersNoTrackingAsync(roomId);
+        Console.WriteLine($"[CanStartGame] RoomId: {roomId}, Room found: {room != null}, Players: {room?.Players.Count ?? 0}, MinPlayers: {room?.MinPlayers ?? 0}, Status: {room?.Status}");
+        return room != null && room.Players.Count >= room.MinPlayers && room.Status == RoomStatus.Waiting;
+    }
+
+    public async Task<(bool CanStart, string? Error)> CanStartGameWithReasonAsync(int roomId)
+    {
+        var room = await _roomRepository.GetByIdAsync(roomId);
+        
+        if (room == null)
+        {
+            return (false, "Room not found");
+        }
+        
+        // IMPORTANT: Use direct player count query instead of room.Players.Count
+        // The Include/navigation property is unreliable - query players directly
+        var playerCount = await _playerRepository.GetPlayerCountByRoomIdAsync(roomId);
+        
+        Console.WriteLine($"[CanStartGameWithReason] RoomId: {roomId}, PlayerCount (direct query): {playerCount}, MinPlayers: {room.MinPlayers}, Status: {room.Status}");
+        
+        if (room.Status != RoomStatus.Waiting)
+        {
+            return (false, $"Game is already {room.Status.ToString().ToLower()}");
+        }
+        
+        if (playerCount < room.MinPlayers)
+        {
+            return (false, $"Not enough players. Need at least {room.MinPlayers}, but only {playerCount} in room");
+        }
+        
+        return (true, null);
     }
 
     public async Task<string[]> GetWordOptionsAsync(int roomId)
@@ -209,11 +285,11 @@ public class GameService : IGameService
             return new GuessResult { IsCorrect = false, Points = 0, TimeTaken = 0 };
 
         var timeTaken = (DateTime.UtcNow - room.RoundStartTime.Value).TotalSeconds;
-        if (timeTaken > Room.RoundDurationSeconds)
+        if (timeTaken > room.RoundDurationSeconds)
             return new GuessResult { IsCorrect = false, Points = 0, TimeTaken = 0 };
 
         var basePoints = 100;
-        var bonusPoints = (int)Math.Max(0, (Room.RoundDurationSeconds - timeTaken) * 2);
+        var bonusPoints = (int)Math.Max(0, (room.RoundDurationSeconds - timeTaken) * 2);
         var totalPoints = basePoints + bonusPoints;
 
         player.HasGuessedCorrectly = true;
@@ -243,7 +319,7 @@ public class GameService : IGameService
         var drawer = room.Players.FirstOrDefault(p => p.IsDrawing);
         if (drawer == null) return;
 
-        var drawerPoints = (int)Math.Max(0, (Room.RoundDurationSeconds - timeTaken) * 3);
+        var drawerPoints = (int)Math.Max(0, (room.RoundDurationSeconds - timeTaken) * 3);
         drawer.Score += drawerPoints;
 
         await _roomRepository.UpdateAsync(room);
@@ -299,7 +375,8 @@ public class GameService : IGameService
             Username = p.Username,
             Score = p.Score,
             IsDrawing = p.IsDrawing,
-            HasGuessedCorrectly = p.HasGuessedCorrectly
+            HasGuessedCorrectly = p.HasGuessedCorrectly,
+            IsHost = p.IsHost
         }).ToList();
     }
 
@@ -318,6 +395,222 @@ public class GameService : IGameService
     public async Task<Player?> GetCurrentDrawerAsync(int roomId)
     {
         return await _playerRepository.GetCurrentDrawerAsync(roomId);
+    }
+
+    // New methods for custom rooms
+
+    public async Task<CreateRoomResult> CreateCustomRoomAsync(string connectionId, string username, string mobileNumber, int? userId, CreateRoomSettings settings)
+    {
+        // Validate settings
+        if (settings.MaxPlayers < Room.MinPlayersLimit || settings.MaxPlayers > Room.MaxPlayersLimit)
+        {
+            return new CreateRoomResult { Success = false, Error = $"Max players must be between {Room.MinPlayersLimit} and {Room.MaxPlayersLimit}" };
+        }
+
+        if (settings.TotalRounds < Room.MinRoundsLimit || settings.TotalRounds > Room.MaxRoundsLimit)
+        {
+            return new CreateRoomResult { Success = false, Error = $"Rounds must be between {Room.MinRoundsLimit} and {Room.MaxRoundsLimit}" };
+        }
+
+        if (settings.RoundDurationSeconds < Room.MinDurationSeconds || settings.RoundDurationSeconds > Room.MaxDurationSeconds)
+        {
+            return new CreateRoomResult { Success = false, Error = $"Round duration must be between {Room.MinDurationSeconds} and {Room.MaxDurationSeconds} seconds" };
+        }
+
+        await _roomLock.WaitAsync();
+        try
+        {
+            var roomCode = GenerateRoomCode();
+            // Ensure unique room code
+            while (await _roomRepository.RoomCodeExistsAsync(roomCode))
+            {
+                roomCode = GenerateRoomCode();
+            }
+
+            var room = new Room
+            {
+                RoomCode = roomCode,
+                Status = RoomStatus.Waiting,
+                RoomType = RoomType.Private,
+                MinPlayers = Room.MinPlayersLimit,
+                MaxPlayers = settings.MaxPlayers,
+                TotalRounds = settings.TotalRounds,
+                RoundDurationSeconds = settings.RoundDurationSeconds,
+                HintLettersCount = settings.HintLettersCount,
+                CustomHintsEnabled = settings.CustomHintsEnabled,
+                CreatedAt = DateTime.UtcNow
+            };
+
+            room = await _roomRepository.CreateAsync(room);
+
+            return new CreateRoomResult
+            {
+                Success = true,
+                RoomId = room.Id,
+                RoomCode = room.RoomCode
+            };
+        }
+        finally
+        {
+            _roomLock.Release();
+        }
+    }
+
+    public async Task<JoinRoomResult> JoinRoomByCodeAsync(string connectionId, string username, string mobileNumber, int? userId, string roomCode)
+    {
+        var room = await _roomRepository.GetWithPlayersByCodeAsync(roomCode);
+
+        if (room == null)
+        {
+            return new JoinRoomResult { Success = false, Error = "Room not found" };
+        }
+
+        if (room.Status == RoomStatus.Finished)
+        {
+            return new JoinRoomResult { Success = false, Error = "Room is no longer available" };
+        }
+
+        if (room.Status == RoomStatus.Playing)
+        {
+            return new JoinRoomResult { Success = false, Error = "Game already in progress" };
+        }
+
+        if (room.Players.Count >= room.MaxPlayers)
+        {
+            return new JoinRoomResult { Success = false, Error = "Room is full" };
+        }
+
+        // IMPORTANT: Delete any existing player record for this mobile number (in ANY room)
+        var existingPlayerAnywhere = await _playerRepository.GetByMobileNumberAsync(mobileNumber);
+        if (existingPlayerAnywhere != null)
+        {
+            Console.WriteLine($"[JoinRoomByCodeAsync] Found existing player {existingPlayerAnywhere.Id} in room {existingPlayerAnywhere.RoomId}, deleting before joining room {room.Id}");
+            await _playerRepository.DeleteAsync(existingPlayerAnywhere);
+        }
+
+        var player = new Player
+        {
+            ConnectionId = connectionId,
+            Username = username,
+            MobileNumber = mobileNumber,
+            UserId = userId,
+            RoomId = room.Id,
+            Score = 0,
+            IsDrawing = false,
+            IsHost = false,
+            HasGuessedCorrectly = false,
+            JoinedAt = DateTime.UtcNow
+        };
+
+        var createdPlayer = await _playerRepository.CreateAsync(player);
+        Console.WriteLine($"[JoinRoomByCodeAsync] Created player {createdPlayer.Id} in room {room.Id}");
+
+        return new JoinRoomResult
+        {
+            Success = true,
+            RoomId = room.Id,
+            RoomCode = room.RoomCode,
+            PlayerId = createdPlayer.Id,
+            IsHost = false
+        };
+    }
+
+    public async Task<Room?> GetRoomByCodeAsync(string roomCode)
+    {
+        return await _roomRepository.GetWithPlayersByCodeAsync(roomCode);
+    }
+
+    public async Task<bool> RemovePlayerFromRoomAsync(int roomId, int playerId, int hostPlayerId)
+    {
+        var room = await _roomRepository.GetWithPlayersAsync(roomId);
+        if (room == null) return false;
+
+        // Verify the requester is the host
+        var host = room.Players.FirstOrDefault(p => p.Id == hostPlayerId);
+        if (host == null || !host.IsHost) return false;
+
+        // Cannot remove yourself as host
+        if (playerId == hostPlayerId) return false;
+
+        var playerToRemove = room.Players.FirstOrDefault(p => p.Id == playerId);
+        if (playerToRemove == null) return false;
+
+        await _playerRepository.DeleteAsync(playerToRemove);
+        return true;
+    }
+
+    public async Task<bool> RestartGameAsync(int roomId, int hostPlayerId)
+    {
+        var room = await _roomRepository.GetWithPlayersAsync(roomId);
+        if (room == null) return false;
+
+        // Verify the requester is the host
+        var host = room.Players.FirstOrDefault(p => p.Id == hostPlayerId);
+        if (host == null || !host.IsHost) return false;
+
+        // Reset room state
+        room.Status = RoomStatus.Waiting;
+        room.CurrentRound = 0;
+        room.CurrentDrawerIndex = 0;
+        room.CurrentWord = null;
+        room.WordOptions = null;
+        room.RoundStartTime = null;
+
+        // Reset all players' scores
+        foreach (var player in room.Players)
+        {
+            player.Score = 0;
+            player.IsDrawing = false;
+            player.HasGuessedCorrectly = false;
+            player.GuessTime = null;
+        }
+
+        await _roomRepository.UpdateAsync(room);
+        return true;
+    }
+
+    public async Task<string> GenerateHintAsync(string word, int hintLettersCount, bool customHintsEnabled)
+    {
+        if (string.IsNullOrEmpty(word)) return string.Empty;
+
+        var hint = new char[word.Length];
+        var wordLower = word.ToLower();
+
+        // Always show first letter
+        hint[0] = wordLower[0];
+
+        // Fill the rest with underscores initially
+        for (int i = 1; i < word.Length; i++)
+        {
+            hint[i] = '_';
+        }
+
+        if (customHintsEnabled && hintLettersCount > 1 && word.Length > 2)
+        {
+            // Reveal additional random letters
+            var availableIndices = Enumerable.Range(1, word.Length - 1).ToList();
+            var random = new Random();
+            var lettersToReveal = Math.Min(hintLettersCount - 1, availableIndices.Count);
+
+            for (int i = 0; i < lettersToReveal; i++)
+            {
+                var idx = random.Next(availableIndices.Count);
+                var letterIndex = availableIndices[idx];
+                hint[letterIndex] = wordLower[letterIndex];
+                availableIndices.RemoveAt(idx);
+            }
+        }
+
+        return string.Join(" ", hint);
+    }
+
+    public async Task<bool> IsPlayerHostAsync(int roomId, int playerId)
+    {
+        var room = await _roomRepository.GetWithPlayersAsync(roomId);
+        if (room == null) return false;
+
+        var player = room.Players.FirstOrDefault(p => p.Id == playerId);
+        return player?.IsHost ?? false;
     }
 
     private static string GenerateRoomCode()

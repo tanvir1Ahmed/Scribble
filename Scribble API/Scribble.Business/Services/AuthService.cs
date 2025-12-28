@@ -196,4 +196,29 @@ public class AuthService : IAuthService
         // Allow 10-15 digits, optionally starting with +
         return Regex.IsMatch(mobileNumber, @"^\+?\d{10,15}$");
     }
+
+    public async Task<User?> GetUserByMobileNumberAsync(string mobileNumber)
+    {
+        var normalizedNumber = NormalizeMobileNumber(mobileNumber);
+        return await _userRepository.GetByMobileNumberAsync(normalizedNumber);
+    }
+
+    public async Task<User?> GetUserByIdAsync(int userId)
+    {
+        return await _userRepository.GetByIdAsync(userId);
+    }
+
+    public async Task<List<User>> SearchUsersAsync(string searchTerm, int currentUserId)
+    {
+        // For now, just search by username - you can extend this
+        if (string.IsNullOrWhiteSpace(searchTerm) || searchTerm.Length < 2)
+            return new List<User>();
+
+        var user = await _userRepository.GetByUsernameAsync(searchTerm);
+        if (user != null && user.Id != currentUserId)
+        {
+            return new List<User> { user };
+        }
+        return new List<User>();
+    }
 }

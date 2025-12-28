@@ -29,7 +29,7 @@ public class GameController : ControllerBase
             RoomId = room.Id,
             RoomCode = room.RoomCode,
             PlayerCount = room.Players.Count,
-            MaxPlayers = Scribble.Repository.Data.Entities.Room.MaxPlayers,
+            MaxPlayers = room.MaxPlayers,
             Status = room.Status.ToString(),
             Players = scores.Select(s => new PlayerScoreDto
             {
